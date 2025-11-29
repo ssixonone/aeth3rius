@@ -3,9 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <title>aeth3rius</title>
+    <!-- Enable dark/light color schemes -->
+    <meta name="color-scheme" content="dark light">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <style>
+        :root {
+            /* Default to dark (will be overridden by media query if user prefers light) */
+            --bg: #121212;
+            --text: #e0e0e0;
+            --muted: #9e9e9e;
+            --accent: #7aa9ff;
+            --accent-hover: #3d8bff;
+            --border: #2a2a2a;
+            color-scheme: dark light;
+            font-family: system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+        }
+        @media (prefers-color-scheme: light) {
+            :root {
+                --bg: #ffffff;
+                --text: #222222;
+                --muted: #555555;
+                --accent: #0645ad;
+                --accent-hover: #0b61d6;
+                --border: #e5e5e5;
+            }
+        }
+        /* Explicit theme override classes */
+        .theme-dark {
+            --bg: #121212;
+            --text: #e0e0e0;
+            --muted: #9e9e9e;
+            --accent: #7aa9ff;
+            --accent-hover: #3d8bff;
+            --border: #2a2a2a;
+        }
+        .theme-light {
+            --bg: #ffffff;
+            --text: #222222;
+            --muted: #555555;
+            --accent: #0645ad;
+            --accent-hover: #0b61d6;
+            --border: #e5e5e5;
+        }
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin:0;
+            background: var(--bg);
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
+            line-height:1.5;
+        }
+        main {
+            max-width:760px;
+            margin:0 auto;
+            padding:2.5rem1.25rem4rem;
+        }
+        h1 {
+            font-size: clamp(2.2rem,6vw,3.2rem);
+            margin:001rem;
+        }
+        p {
+            margin:001rem;
+        }
+        a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        a:hover, a:focus {
+            color: var(--accent-hover);
+            text-decoration: underline;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap:1rem;
+            margin-bottom:2rem;
+        }
+        .theme-toggle {
+            border:1px solid var(--border);
+            background: transparent;
+            color: var(--text);
+            padding:0.5rem0.85rem;
+            border-radius:6px;
+            cursor: pointer;
+            font-size:0.85rem;
+            line-height:1;
+        }
+        .theme-toggle:hover {
+            background: var(--border);
+        }
+        .muted {
+            color: var(--muted);
+            font-size:0.9rem;
+        }
+        /* Prefer reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+    </style>
+    <script>
+        (function() {
+            const stored = localStorage.getItem('theme');
+            if (stored === 'dark') document.documentElement.classList.add('theme-dark');
+            else if (stored === 'light') document.documentElement.classList.add('theme-light');
+        })();
+        function toggleTheme() {
+            const root = document.documentElement;
+            const isDark = root.classList.contains('theme-dark');
+            const isLight = root.classList.contains('theme-light');
+            if (isDark) {
+                root.classList.remove('theme-dark');
+                root.classList.add('theme-light');
+                localStorage.setItem('theme','light');
+            } else if (isLight) {
+                root.classList.remove('theme-light');
+                root.classList.add('theme-dark');
+                localStorage.setItem('theme','dark');
+            } else {
+                // No override yet; infer from media query then flip
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                if (prefersDark) {
+                    root.classList.add('theme-light');
+                    localStorage.setItem('theme','light');
+                } else {
+                    root.classList.add('theme-dark');
+                    localStorage.setItem('theme','dark');
+                }
+            }
+            updateToggleLabel();
+        }
+        function updateToggleLabel() {
+            const btn = document.getElementById('themeToggle');
+            if (!btn) return;
+            const root = document.documentElement;
+            if (root.classList.contains('theme-dark')) btn.textContent = 'Light Mode';
+            else if (root.classList.contains('theme-light')) btn.textContent = 'Dark Mode';
+            else btn.textContent = 'Toggle Theme';
+        }
+        document.addEventListener('DOMContentLoaded', updateToggleLabel);
+    </script>
 </head>
 <body>
-    <h1>Hello World! i'm aeth3rius</h1>
-    <p>This is my professional landing page.</p>
+    <main>
+        <header>
+            <h1>aeth3rius</h1>
+            <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle color theme" onclick="toggleTheme()">Toggle Theme</button>
+        </header>
+        <p>This is my professional landing page.</p>
+        <p class="muted">System preference respected. Use the button to override and persist.</p>
+    </main>
 </body>
 </html>
