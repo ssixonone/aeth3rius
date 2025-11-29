@@ -2,108 +2,534 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>aeth3rius</title>
-    <!-- Enable dark/light color schemes -->
+    <title>aeth3rius - Digital Solutions & Innovation</title>
+    <meta name="description" content="aeth3rius delivers cutting-edge digital solutions, web development, and innovative technology services to help your business thrive.">
     <meta name="color-scheme" content="dark light">
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Default to dark (will be overridden by media query if user prefers light) */
-            --bg: #121212;
-            --text: #e0e0e0;
-            --muted: #9e9e9e;
-            --accent: #7aa9ff;
-            --accent-hover: #3d8bff;
-            --border: #2a2a2a;
+            --bg: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: #16161f;
+            --text: #f5f5f7;
+            --text-secondary: #a1a1aa;
+            --accent: #6366f1;
+            --accent-hover: #818cf8;
+            --accent-glow: rgba(99, 102, 241, 0.3);
+            --border: #27272a;
+            --gradient-1: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
+            --gradient-2: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%);
             color-scheme: dark light;
-            font-family: system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+            font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
         }
         @media (prefers-color-scheme: light) {
             :root {
                 --bg: #ffffff;
-                --text: #222222;
-                --muted: #555555;
-                --accent: #0645ad;
-                --accent-hover: #0b61d6;
-                --border: #e5e5e5;
+                --bg-secondary: #f8f9fa;
+                --bg-card: #ffffff;
+                --text: #111827;
+                --text-secondary: #6b7280;
+                --accent: #4f46e5;
+                --accent-hover: #6366f1;
+                --accent-glow: rgba(79, 70, 229, 0.2);
+                --border: #e5e7eb;
+                --gradient-2: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
             }
         }
-        /* Explicit theme override classes */
         .theme-dark {
-            --bg: #121212;
-            --text: #e0e0e0;
-            --muted: #9e9e9e;
-            --accent: #7aa9ff;
-            --accent-hover: #3d8bff;
-            --border: #2a2a2a;
+            --bg: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: #16161f;
+            --text: #f5f5f7;
+            --text-secondary: #a1a1aa;
+            --accent: #6366f1;
+            --accent-hover: #818cf8;
+            --accent-glow: rgba(99, 102, 241, 0.3);
+            --border: #27272a;
+            --gradient-2: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%);
         }
         .theme-light {
             --bg: #ffffff;
-            --text: #222222;
-            --muted: #555555;
-            --accent: #0645ad;
-            --accent-hover: #0b61d6;
-            --border: #e5e5e5;
+            --bg-secondary: #f8f9fa;
+            --bg-card: #ffffff;
+            --text: #111827;
+            --text-secondary: #6b7280;
+            --accent: #4f46e5;
+            --accent-hover: #6366f1;
+            --accent-glow: rgba(79, 70, 229, 0.2);
+            --border: #e5e7eb;
+            --gradient-2: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
         }
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        html {
+            scroll-behavior: smooth;
         }
         body {
-            margin:0;
             background: var(--bg);
             color: var(--text);
             -webkit-font-smoothing: antialiased;
-            line-height:1.5;
+            line-height: 1.6;
+            overflow-x: hidden;
         }
-        main {
-            max-width:760px;
-            margin:0 auto;
-            padding:2.5rem1.25rem4rem;
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            transition: background 0.3s ease;
         }
-        h1 {
-            font-size: clamp(2.2rem,6vw,3.2rem);
-            margin:001rem;
+        .theme-light nav {
+            background: rgba(255, 255, 255, 0.9);
         }
-        p {
-            margin:001rem;
-        }
-        a {
-            color: var(--accent);
-            text-decoration: none;
-        }
-        a:hover, a:focus {
-            color: var(--accent-hover);
-            text-decoration: underline;
-        }
-        header {
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap:1rem;
-            margin-bottom:2rem;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            list-style: none;
+        }
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+        .nav-links a:hover {
+            color: var(--text);
         }
         .theme-toggle {
-            border:1px solid var(--border);
             background: transparent;
+            border: 1px solid var(--border);
             color: var(--text);
-            padding:0.5rem0.85rem;
-            border-radius:6px;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
             cursor: pointer;
-            font-size:0.85rem;
-            line-height:1;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
         }
         .theme-toggle:hover {
-            background: var(--border);
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
         }
-        .muted {
-            color: var(--muted);
-            font-size:0.9rem;
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+            background: var(--gradient-2);
         }
-        /* Prefer reduced motion */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse 80% 50% at 50% -20%, var(--accent-glow), transparent);
+            pointer-events: none;
+        }
+        .hero-content {
+            max-width: 900px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 0.5rem 1rem;
+            border-radius: 100px;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+        .hero-badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: #22c55e;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.03em;
+        }
+        .hero h1 span {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero p {
+            font-size: clamp(1.125rem, 2.5vw, 1.375rem);
+            color: var(--text-secondary);
+            max-width: 650px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.7;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: none;
+        }
+        .btn-primary {
+            background: var(--gradient-1);
+            color: white;
+            box-shadow: 0 4px 20px var(--accent-glow);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px var(--accent-glow);
+        }
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+        .btn-secondary:hover {
+            background: var(--bg-secondary);
+            border-color: var(--accent);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 8rem 2rem;
+            background: var(--bg-secondary);
+        }
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        .section-header h2 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+        .section-header p {
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--gradient-1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+        .feature-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+        .feature-card p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* About Section */
+        .about {
+            padding: 8rem 2rem;
+            background: var(--bg);
+        }
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        .about-text h2 {
+            font-size: clamp(2rem, 5vw, 2.75rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+        .about-text p {
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .stat {
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .about-visual {
+            position: relative;
+        }
+        .about-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .about-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-1);
+        }
+        .about-card-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+        .tech-tag {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 8rem 2rem;
+            background: var(--bg-secondary);
+        }
+        .contact-content {
+            text-align: center;
+        }
+        .contact h2 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+        .contact p {
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+            max-width: 500px;
+            margin: 0 auto 2rem;
+        }
+        .contact-email {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.25rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+        .contact-email:hover {
+            color: var(--accent-hover);
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 2rem;
+            background: var(--bg);
+            border-top: 1px solid var(--border);
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .footer-logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.2s ease;
+        }
+        .footer-links a:hover {
+            color: var(--text);
+        }
+        .footer-copy {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            .about-visual {
+                order: -1;
+            }
+        }
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .hero {
+                padding: 7rem 1.5rem 3rem;
+            }
+            .features, .about, .contact {
+                padding: 5rem 1.5rem;
+            }
+            .about-stats {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        /* Animations */
+        @media (prefers-reduced-motion: no-preference) {
+            .feature-card, .about-card {
+                opacity: 0;
+                transform: translateY(20px);
+                animation: fadeInUp 0.6s ease forwards;
+            }
+            .feature-card:nth-child(1) { animation-delay: 0.1s; }
+            .feature-card:nth-child(2) { animation-delay: 0.2s; }
+            .feature-card:nth-child(3) { animation-delay: 0.3s; }
+        }
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
         @media (prefers-reduced-motion: reduce) {
             * {
                 animation: none !important;
                 transition: none !important;
+            }
+            html {
+                scroll-behavior: auto;
             }
         }
     </style>
@@ -126,7 +552,6 @@
                 root.classList.add('theme-dark');
                 localStorage.setItem('theme','dark');
             } else {
-                // No override yet; infer from media query then flip
                 const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
                 if (prefersDark) {
                     root.classList.add('theme-light');
@@ -142,21 +567,136 @@
             const btn = document.getElementById('themeToggle');
             if (!btn) return;
             const root = document.documentElement;
-            if (root.classList.contains('theme-dark')) btn.textContent = 'Light Mode';
-            else if (root.classList.contains('theme-light')) btn.textContent = 'Dark Mode';
-            else btn.textContent = 'Toggle Theme';
+            if (root.classList.contains('theme-dark')) btn.textContent = '☀️ Light';
+            else if (root.classList.contains('theme-light')) btn.textContent = '🌙 Dark';
+            else btn.textContent = '🎨 Theme';
         }
         document.addEventListener('DOMContentLoaded', updateToggleLabel);
     </script>
 </head>
 <body>
-    <main>
-        <header>
-            <h1>aeth3rius</h1>
-            <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle color theme" onclick="toggleTheme()">Toggle Theme</button>
-        </header>
-        <p>This is my professional landing page.</p>
-        <p class="muted">System preference respected. Use the button to override and persist.</p>
-    </main>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">aeth3rius</div>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle color theme" onclick="toggleTheme()">🎨 Theme</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">Available for new projects</div>
+            <h1>Building <span>Digital Experiences</span> That Matter</h1>
+            <p>We craft innovative digital solutions that help businesses transform their ideas into powerful, scalable products. From concept to launch, we're your technology partner.</p>
+            <div class="hero-buttons">
+                <a href="#contact" class="btn btn-primary">Get Started →</a>
+                <a href="#features" class="btn btn-secondary">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>What We Do</h2>
+                <p>Comprehensive solutions tailored to elevate your digital presence and drive business growth.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3>Web Development</h3>
+                    <p>Modern, responsive websites and web applications built with cutting-edge technologies for optimal performance and user experience.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💡</div>
+                    <h3>Digital Strategy</h3>
+                    <p>Strategic planning and consultation to help you navigate the digital landscape and achieve your business objectives.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Cloud Solutions</h3>
+                    <p>Scalable cloud infrastructure and deployment solutions that ensure your applications are fast, secure, and reliable.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="section-container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Driven by Innovation, Powered by Excellence</h2>
+                    <p>At aeth3rius, we believe in the transformative power of technology. Our team combines technical expertise with creative thinking to deliver solutions that not only meet your needs but exceed your expectations.</p>
+                    <p>We're passionate about building products that make a difference, whether it's streamlining operations, enhancing user experiences, or creating entirely new digital possibilities.</p>
+                    <div class="about-stats">
+                        <div class="stat">
+                            <div class="stat-number">50+</div>
+                            <div class="stat-label">Projects</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">99%</div>
+                            <div class="stat-label">Satisfaction</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">24/7</div>
+                            <div class="stat-label">Support</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-visual">
+                    <div class="about-card">
+                        <div class="about-card-content">
+                            <h3>Our Tech Stack</h3>
+                            <p style="color: var(--text-secondary);">We use modern technologies to build robust, scalable solutions.</p>
+                            <div class="tech-stack">
+                                <span class="tech-tag">JavaScript</span>
+                                <span class="tech-tag">TypeScript</span>
+                                <span class="tech-tag">React</span>
+                                <span class="tech-tag">Node.js</span>
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">AWS</span>
+                                <span class="tech-tag">Docker</span>
+                                <span class="tech-tag">PostgreSQL</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="section-container">
+            <div class="contact-content">
+                <h2>Let's Build Something Great</h2>
+                <p>Ready to start your next project? We'd love to hear from you and discuss how we can help bring your vision to life.</p>
+                <a href="mailto:hello@aeth3rius.com" class="contact-email">
+                    ✉️ hello@aeth3rius.com
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">aeth3rius</div>
+            <ul class="footer-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <p class="footer-copy">© 2024 aeth3rius. All rights reserved.</p>
+        </div>
+    </footer>
 </body>
 </html>
