@@ -1,0 +1,32 @@
+name: Sync Main to Production
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sync-branch:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Grants permission to push code to the repo
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Fetches all history so we can switch branches
+
+      - name: Update Production Branch
+        run: |
+          # Configure Git Identity (required for CI actions)
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+
+          # Switch to production branch (create if it doesn't exist)
+          git checkout production || git checkout -b production
+
+          # Reset production to match main exactly
+          git reset --hard origin/main
+
+          # Force push the update to production
+          git push origin production --force
